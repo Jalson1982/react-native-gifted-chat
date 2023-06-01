@@ -1,5 +1,5 @@
 import PropTypes from 'prop-types'
-import moment from 'moment'
+import dayjs from 'dayjs'
 
 import { IMessage } from './Models'
 
@@ -10,29 +10,22 @@ export const StylePropType = PropTypes.oneOfType([
   PropTypes.bool,
 ])
 
-export function isSameDay(  currentMessage: IMessage,
-  diffMessage: IMessage | null | undefined,) {
+export function isSameDay(
+  currentMessage: IMessage,
+  diffMessage: IMessage | null | undefined,
+) {
   if (!diffMessage || !diffMessage.createdAt) {
-      return false;
+    return false
   }
 
-  const currentCreatedAt = moment(currentMessage.createdAt);
-  const diffCreatedAt = moment(diffMessage.createdAt);
+  const currentCreatedAt = dayjs(currentMessage.createdAt)
+  const diffCreatedAt = dayjs(diffMessage.createdAt)
 
   if (!currentCreatedAt.isValid() || !diffCreatedAt.isValid()) {
-      return false;
+    return false
   }
 
-  if(currentCreatedAt.isSame(diffCreatedAt, 'day')) {
-      return true;
-  }
-
-  const differenceInMinutes = currentCreatedAt.diff(diffCreatedAt, 'minutes');
-  if(Math.abs(differenceInMinutes) <= 10) {
-      return true;
-  }
-
-  return false;
+  return currentCreatedAt.isSame(diffCreatedAt, 'day')
 }
 
 export function isSameUser(
