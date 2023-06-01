@@ -82,6 +82,7 @@
     "@expo/react-native-action-sheet": "*",
     "dayjs": "*",
     "react": "*",
+    "moment": "*",
     "react-native": "*",
     "react-native-communications": "*",
     "react-native-lightbox": "*",
